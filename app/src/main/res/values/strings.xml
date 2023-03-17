@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RAWG Video Games</string>
+    <string name="content_description">Content Description</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="games_for_you">Games For You</string>
+    <string name="favorite_games">Favorite Games</string>
+    <string name="search">Search</string>
+</resources>
