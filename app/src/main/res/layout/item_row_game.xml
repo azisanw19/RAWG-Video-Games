@@ -25,10 +25,7 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
-            android:layout_marginEnd="@dimen/medium_margin"
-            android:textSize="@dimen/bigger_text_size"
-            android:textStyle="bold"
+            style="@style/TextSpecs.Title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_game"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,26 +35,23 @@
             android:id="@+id/tv_release_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
+            style="@style/TextSpecs"
             android:layout_marginTop="@dimen/medium_margin"
-            android:layout_marginEnd="@dimen/medium_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_game"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:text="Rekease date 2021-08-20" />
+            tools:text="Release date 2021-08-20" />
 
         <TextView
             android:id="@+id/tv_rating"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/medium_margin"
+            style="@style/TextSpecs.Drawable"
             android:layout_marginTop="@dimen/medium_margin"
-            android:layout_marginEnd="@dimen/medium_margin"
             tools:text="4.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_game"
             app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
-            android:gravity="center_vertical"
             app:drawableStartCompat="@drawable/star" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
