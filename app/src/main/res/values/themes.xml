@@ -27,7 +27,11 @@
     <style name="TextSpecs.Drawable">
         <item name="android:gravity">center_vertical</item>
         <item name="android:drawablePadding">@dimen/small_margin</item>
-
     </style>
-    
+
+    <style name="RoundedSquare">
+        <item name="cornerSize">10%</item>
+    </style>
+
+
 </resources>

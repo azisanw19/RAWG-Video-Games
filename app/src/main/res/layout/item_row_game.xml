@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginTop="@dimen/normal_margin">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_game"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/content_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/RoundedSquare"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <ImageView
-            android:id="@+id/iv_game"
-            android:layout_width="160dp"
-            android:layout_height="120dp"
-            android:contentDescription="@string/content_description"
-            android:elevation="@dimen/smaller_margin"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextSpecs.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Vampire: The Masquerade - Bloodlines 2" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/TextSpecs.Title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_game"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Vampire: The Masquerade - Bloodlines 2" />
+    <TextView
+        android:id="@+id/tv_release_date"
+        style="@style/TextSpecs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        tools:text="Release date 2021-08-20" />
 
-        <TextView
-            android:id="@+id/tv_release_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/TextSpecs"
-            android:layout_marginTop="@dimen/medium_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_game"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:text="Release date 2021-08-20" />
+    <TextView
+        android:id="@+id/tv_rating"
+        style="@style/TextSpecs.Drawable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        app:drawableStartCompat="@drawable/star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_game"
+        app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
+        tools:text="4.5" />
 
-        <TextView
-            android:id="@+id/tv_rating"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/TextSpecs.Drawable"
-            android:layout_marginTop="@dimen/medium_margin"
-            tools:text="4.5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_game"
-            app:layout_constraintTop_toBottomOf="@+id/tv_release_date"
-            app:drawableStartCompat="@drawable/star" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
