@@ -4,28 +4,37 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.canwar.rawgvideogames.api.Game
 import com.canwar.rawgvideogames.api.GameResponse
 import com.canwar.rawgvideogames.api.ApiConfig
+import com.canwar.rawgvideogames.api.ApiService
+import com.canwar.rawgvideogames.data.GameRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(gameRepository: GameRepository) : ViewModel() {
 
-    private val _games = MutableLiveData<List<Game>>()
-    val games: LiveData<List<Game>> = _games
+    val games: LiveData<PagingData<Game>> =
+        gameRepository.getGame().cachedIn(viewModelScope)
 
-    companion object{
+    /*private val _games = MutableLiveData<List<Game>>()
+    val games: LiveData<List<Game>> = _games*/
+
+    /*companion object{
         private const val TAG = "HomeViewModel"
-    }
+    }*/
 
-    init {
+    /*init {
         getGame()
-    }
+    }*/
 
-    private fun getGame() {
-        val client = ApiConfig.getApiService().getGames(1 )
+//    private fun getGame() {
+
+        /*val client = ApiConfig.getApiService().getGames(1 )
         client.enqueue(object : Callback<GameResponse> {
             override fun onResponse(call: Call<GameResponse>, response: Response<GameResponse>) {
                 if (response.isSuccessful) {
@@ -39,8 +48,8 @@ class HomeViewModel : ViewModel() {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
-        })
-    }
+        })*/
+//    }
 
 
 }

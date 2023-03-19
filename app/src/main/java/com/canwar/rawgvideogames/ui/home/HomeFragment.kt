@@ -5,17 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.canwar.rawgvideogames.api.Game
+import com.canwar.rawgvideogames.ui.ViewModelFactory
 import com.canwar.rawgvideogames.databinding.FragmentHomeBinding
-import com.canwar.rawgvideogames.ui.GameAdapter
+import com.canwar.rawgvideogames.adapter.GameAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val gameAdapter by lazy { GameAdapter() }
+    private val homeViewModel: HomeViewModel by viewModels {
+        ViewModelFactory(this.requireContext())
+    }
 
 
     override fun onCreateView(
@@ -25,21 +28,19 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val homeViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[HomeViewModel::class.java]
+        binding.rvGame.layoutManager = LinearLayoutManager(this.context)
 
-        val layoutManager = LinearLayoutManager(this.context)
-        binding.rvGame.layoutManager = layoutManager
-
-        homeViewModel.games.observe(viewLifecycleOwner) { games ->
-            setRecyclerView(games)
-        }
+        setRecyclerViewGame()
 
         return binding.root
     }
 
-    private fun setRecyclerView(games : List<Game>) {
-        gameAdapter.differ.submitList(games)
-        binding.rvGame.adapter = gameAdapter
+    private fun setRecyclerViewGame() {
+        val adapter = GameAdapter()
+        binding.rvGame.adapter = adapter
+        homeViewModel.games.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
+        }
     }
 
     override fun onDestroy() {
