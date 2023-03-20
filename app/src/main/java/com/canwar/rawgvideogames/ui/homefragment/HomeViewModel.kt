@@ -1,7 +1,6 @@
-package com.canwar.rawgvideogames.ui.home
+package com.canwar.rawgvideogames.ui.homefragment
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData

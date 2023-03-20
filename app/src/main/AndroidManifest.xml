@@ -14,7 +14,7 @@
         android:theme="@style/Theme.RAWGVideoGames"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.DetailActivity"
+            android:name=".ui.detailactivity.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

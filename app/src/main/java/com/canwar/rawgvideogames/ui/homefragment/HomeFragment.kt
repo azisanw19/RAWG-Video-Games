@@ -1,4 +1,4 @@
-package com.canwar.rawgvideogames.ui.home
+package com.canwar.rawgvideogames.ui.homefragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,7 @@ import com.canwar.rawgvideogames.ui.ViewModelFactory
 import com.canwar.rawgvideogames.databinding.FragmentHomeBinding
 import com.canwar.rawgvideogames.adapter.GameAdapter
 import com.canwar.rawgvideogames.api.Game
-import com.canwar.rawgvideogames.ui.DetailActivity
+import com.canwar.rawgvideogames.ui.detailactivity.DetailActivity
 
 class HomeFragment : Fragment() {
 
@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
 
     private fun moveIntent(game: Game) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra(EXTRA_GAME_HOME_FRAGMENT, game)
+        intent.putExtra(EXTRA_GAME_HOME_FRAGMENT, game.id)
         startActivity(intent)
     }
 

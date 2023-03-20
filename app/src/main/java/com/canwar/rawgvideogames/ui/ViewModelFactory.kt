@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.canwar.rawgvideogames.di.Injection
-import com.canwar.rawgvideogames.ui.home.HomeViewModel
+import com.canwar.rawgvideogames.ui.homefragment.HomeViewModel
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
