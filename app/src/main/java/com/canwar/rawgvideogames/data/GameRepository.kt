@@ -10,13 +10,13 @@ import com.canwar.rawgvideogames.api.Game
 
 class GameRepository(private val apiService: ApiService) {
 
-    fun getGame(): LiveData<PagingData<Game>> {
+    fun getGame(searchQuery: String? = null): LiveData<PagingData<Game>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
             pagingSourceFactory = {
-                GamePagingSource(apiService)
+                GamePagingSource(apiService, searchQuery)
             }
         ).liveData
     }
