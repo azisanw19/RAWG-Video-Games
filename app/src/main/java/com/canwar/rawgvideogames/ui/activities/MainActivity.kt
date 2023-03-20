@@ -1,4 +1,4 @@
-package com.canwar.rawgvideogames.ui
+package com.canwar.rawgvideogames.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

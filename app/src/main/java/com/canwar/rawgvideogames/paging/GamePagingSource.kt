@@ -1,10 +1,9 @@
-package com.canwar.rawgvideogames.data
+package com.canwar.rawgvideogames.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.canwar.rawgvideogames.api.ApiService
-import com.canwar.rawgvideogames.api.Game
-
+import com.canwar.rawgvideogames.network.api.ApiService
+import com.canwar.rawgvideogames.data.responsemodel.Game
 
 class GamePagingSource(private val apiService: ApiService, private val searchQuery: String? = null) : PagingSource<Int, Game>() {
 

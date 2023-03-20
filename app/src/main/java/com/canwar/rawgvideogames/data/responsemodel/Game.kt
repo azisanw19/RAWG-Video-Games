@@ -1,22 +1,12 @@
-package com.canwar.rawgvideogames.api
+package com.canwar.rawgvideogames.data.responsemodel
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-
-data class GameResponse(
-
-    @field:SerializedName("results")
-    val games: List<Game>,
-
-    @field:SerializedName("next")
-    val nextPage: String,
-
-    @field:SerializedName("previous")
-    val previousPage: String
-
-)
-
+@Entity(tableName = "favorite_game")
 data class Game(
+    @PrimaryKey
     @field:SerializedName("id")
     val id: Int,
 

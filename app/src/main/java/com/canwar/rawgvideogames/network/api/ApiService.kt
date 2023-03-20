@@ -1,5 +1,7 @@
-package com.canwar.rawgvideogames.api
+package com.canwar.rawgvideogames.network.api
 
+import com.canwar.rawgvideogames.data.responsemodel.Game
+import com.canwar.rawgvideogames.data.responsemodel.GameList
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,7 +16,7 @@ interface ApiService {
         @Query("page_size") count: Int = 20,
         @Query("search") search: String? = null,
         @Query("key") key: String = "10a79a5e331e40d48d9b7e470d0ff6c5"
-    ): Response<GameResponse>
+    ): Response<GameList>
 
     @GET("games/{id_game}")
     fun detailGame(

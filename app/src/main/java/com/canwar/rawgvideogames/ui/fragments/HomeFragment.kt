@@ -1,9 +1,7 @@
-package com.canwar.rawgvideogames.ui.homefragment
+package com.canwar.rawgvideogames.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,11 +11,12 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.canwar.rawgvideogames.ui.ViewModelFactory
+import com.canwar.rawgvideogames.viewmodel.ViewModelFactory
 import com.canwar.rawgvideogames.databinding.FragmentHomeBinding
-import com.canwar.rawgvideogames.adapter.GameAdapter
-import com.canwar.rawgvideogames.api.Game
-import com.canwar.rawgvideogames.ui.detailactivity.DetailActivity
+import com.canwar.rawgvideogames.ui.adapters.GameAdapter
+import com.canwar.rawgvideogames.data.responsemodel.Game
+import com.canwar.rawgvideogames.ui.activities.DetailActivity
+import com.canwar.rawgvideogames.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
@@ -33,12 +32,6 @@ class HomeFragment : Fragment() {
         ViewModelFactory(this.requireContext())
     }
 
-    private var currentText = ""
-    private val handler = Handler(Looper.getMainLooper())
-    private val searchRunnable = Runnable {
-        Log.d(TAG, currentText)
-        setRecyclerViewGame(currentText)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,30 +46,16 @@ class HomeFragment : Fragment() {
     }
 
     override fun onResume() {
-        /**
-         * Handling Recycler View
-         **/
-        if (currentText == "") {
-            setRecyclerViewGame()
-        } else {
-            // TODO: Bug setelah orientation berubah currentText berubah "", tidak melanjutkan pencarian
-            setRecyclerViewGame(currentText)
-        }
 
-        /**
-         * Handling Search Edit Text Changed
-         * */
         onEtSearchChanged()
+        setRecyclerViewGame()
+
         super.onResume()
     }
 
     private fun onEtSearchChanged() {
         binding.etSearch.doAfterTextChanged {
-            currentText = it?.toString() ?: ""
-
-            handler.removeCallbacks(searchRunnable)
-            handler.postDelayed(searchRunnable, 500L)
-
+            homeViewModel.searchChange(it.toString())
         }
     }
 
@@ -102,31 +81,6 @@ class HomeFragment : Fragment() {
                 }
             }
 
-        }
-    }
-
-    private fun setRecyclerViewGame(searchQuery: String) {
-        val adapter = GameAdapter{
-            moveIntent(it)
-        }
-        binding.rvGame.adapter = adapter
-        homeViewModel.gameSearch(searchQuery).observe(viewLifecycleOwner) {
-            adapter.submitData(lifecycle, it)
-            Log.d(TAG, "Observe Search Query")
-
-            adapter.addLoadStateListener { loadState ->
-                if (loadState.refresh is LoadState.Loading) {
-                    showLoading(true)
-                    showEmpty(false)
-                }
-                else if (adapter.itemCount == 0) {
-                    showLoading(false)
-                    showEmpty(true)
-                } else {
-                    showLoading(false)
-                    showEmpty(false)
-                }
-            }
         }
     }
 

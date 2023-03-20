@@ -1,4 +1,4 @@
-package com.canwar.rawgvideogames.ui.favoritefragment
+package com.canwar.rawgvideogames.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.canwar.rawgvideogames.adapter
+package com.canwar.rawgvideogames.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.canwar.rawgvideogames.api.Game
+import com.canwar.rawgvideogames.data.responsemodel.Game
 import com.canwar.rawgvideogames.databinding.ItemRowGameBinding
 
-class GameAdapter(private val onClick: (Game) -> Unit) : PagingDataAdapter<Game, GameAdapter.ViewHolder>(DIFF_CALLBACK) {
+class GameAdapter(private val onClick: (Game) -> Unit) : PagingDataAdapter<Game, GameAdapter.ViewHolder>(
+    DIFF_CALLBACK
+) {
 
     inner class ViewHolder(var binding: ItemRowGameBinding) :
         RecyclerView.ViewHolder(binding.root) {

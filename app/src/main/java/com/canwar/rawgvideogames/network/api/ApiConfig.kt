@@ -1,4 +1,4 @@
-package com.canwar.rawgvideogames.api
+package com.canwar.rawgvideogames.network.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

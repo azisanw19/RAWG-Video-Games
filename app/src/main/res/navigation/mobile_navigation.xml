@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.canwar.rawgvideogames.ui.homefragment.HomeFragment"
+        android:name="com.canwar.rawgvideogames.ui.fragments.HomeFragment"
         android:label="@string/games_for_you"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.canwar.rawgvideogames.ui.favoritefragment.FavoriteFragment"
+        android:name="com.canwar.rawgvideogames.ui.fragments.FavoriteFragment"
         android:label="@string/favorite_games"
         tools:layout="@layout/fragment_favorite" />
 </navigation>

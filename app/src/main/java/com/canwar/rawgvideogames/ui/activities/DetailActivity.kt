@@ -1,19 +1,26 @@
-package com.canwar.rawgvideogames.ui.detailactivity
+package com.canwar.rawgvideogames.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.view.Menu
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.canwar.rawgvideogames.R
-import com.canwar.rawgvideogames.api.Game
+import com.canwar.rawgvideogames.data.responsemodel.Game
 import com.canwar.rawgvideogames.databinding.ActivityDetailBinding
-import com.canwar.rawgvideogames.ui.homefragment.HomeFragment.Companion.EXTRA_GAME_HOME_FRAGMENT
+import com.canwar.rawgvideogames.viewmodel.DetailViewModel
+import com.canwar.rawgvideogames.viewmodel.ViewModelFactory
+import com.canwar.rawgvideogames.ui.fragments.HomeFragment.Companion.EXTRA_GAME_HOME_FRAGMENT
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+
+    private val detailViewModel: DetailViewModel by viewModels {
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +28,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val idGame = intent.getIntExtra(EXTRA_GAME_HOME_FRAGMENT, 0)
-
-        val detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
-
         detailViewModel.getGame(idGame)
+
         detailViewModel.games.observe(this) {
             setContent(it)
         }
@@ -32,6 +37,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -40,6 +46,7 @@ class DetailActivity : AppCompatActivity() {
         // TODO: Settings menu favorite
         val itemIsSave = menu?.findItem(R.id.detail_save_navigation_menu)
         itemIsSave?.isVisible = false
+//        itemIsSave?.icon?
 
         return super.onCreateOptionsMenu(menu)
     }
@@ -51,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
         binding.tvTitleDetail.text = game.title
         binding.tvReleaseDateDetails.text = "Release date ${game.released}"
         binding.tvRattingDetails.text = game.rating.toString()
-        binding.tvDescriptionDetail.text = game.description
+        binding.tvDescriptionDetail.text = Html.fromHtml(game.description, Html.FROM_HTML_MODE_COMPACT)
     }
 
     private fun showLoading(isLoading: Boolean) {
