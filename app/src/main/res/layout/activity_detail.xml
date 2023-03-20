@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_game"
+            android:id="@+id/iv_game_details"
             android:layout_width="0dp"
             android:layout_height="300dp"
             android:contentDescription="@string/content_description"
@@ -23,45 +23,46 @@
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            android:id="@+id/tv_developer"
-            style="@style/TextSpecs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_game"
-            tools:text="Release date 2021-08-20" />
-
-        <TextView
-            android:id="@+id/tv_empty_game"
+            android:id="@+id/tv_title_detail"
             style="@style/TextSpecs.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_developer"
+            app:layout_constraintTop_toBottomOf="@+id/iv_game_details"
             tools:text="Vampire: The Masquerade - Bloodlines 2" />
 
         <TextView
-            android:id="@+id/tv_ratting"
+            android:id="@+id/tv_release_date_details"
+            style="@style/TextSpecs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_detail"
+            tools:text="Release date 2000 - 1 - 19" />
+
+        <TextView
+            android:id="@+id/tv_ratting_details"
             style="@style/TextSpecs.Drawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:drawableStartCompat="@drawable/star"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_empty_game"
+            app:layout_constraintTop_toBottomOf="@+id/tv_release_date_details"
             tools:text="4.5" />
 
         <TextView
-            android:id="@+id/tv_played"
+            android:id="@+id/tv_played_detail"
             style="@style/TextSpecs.Drawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             app:drawableStartCompat="@drawable/game"
-            app:layout_constraintStart_toEndOf="@+id/tv_ratting"
-            app:layout_constraintTop_toTopOf="@+id/tv_ratting"
+            app:layout_constraintStart_toEndOf="@+id/tv_ratting_details"
+            app:layout_constraintTop_toTopOf="@+id/tv_ratting_details"
             tools:text="200 played" />
 
         <TextView
@@ -72,7 +73,7 @@
             android:layout_marginTop="@dimen/big_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_ratting"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ratting_details"
             tools:text="@string/lorem_ipsum" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

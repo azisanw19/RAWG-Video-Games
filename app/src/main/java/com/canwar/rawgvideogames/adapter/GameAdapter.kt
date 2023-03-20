@@ -9,19 +9,22 @@ import com.bumptech.glide.Glide
 import com.canwar.rawgvideogames.api.Game
 import com.canwar.rawgvideogames.databinding.ItemRowGameBinding
 
-class GameAdapter : PagingDataAdapter<Game, GameAdapter.ViewHolder>(DIFF_CALLBACK) {
+class GameAdapter(private val onClick: (Game) -> Unit) : PagingDataAdapter<Game, GameAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    class ViewHolder(var binding: ItemRowGameBinding) :
+    inner class ViewHolder(var binding: ItemRowGameBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(game: Game) {
             binding.apply {
                 tvTitle.text = game.title
-                tvReleaseDate.text = game.released
+                tvReleaseDate.text = "Release date ${game.released}"
                 tvRating.text = game.rating.toString()
                 Glide.with(this.root)
                     .load(game.backgroundImage)
                     .into(ivGame)
+                root.setOnClickListener {
+                    onClick(game)
+                }
             }
         }
 

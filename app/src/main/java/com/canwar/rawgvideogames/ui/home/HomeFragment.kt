@@ -1,5 +1,6 @@
 package com.canwar.rawgvideogames.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,11 +16,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.canwar.rawgvideogames.ui.ViewModelFactory
 import com.canwar.rawgvideogames.databinding.FragmentHomeBinding
 import com.canwar.rawgvideogames.adapter.GameAdapter
+import com.canwar.rawgvideogames.api.Game
+import com.canwar.rawgvideogames.ui.DetailActivity
 
 class HomeFragment : Fragment() {
 
     companion object {
         private const val TAG = "HOME_FRAGMENT"
+        const val EXTRA_GAME_HOME_FRAGMENT = "EXTRA_GAME_HOME_FRAGMENT"
     }
 
     private var _binding: FragmentHomeBinding? = null
@@ -77,7 +81,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecyclerViewGame() {
-        val adapter = GameAdapter()
+        val adapter = GameAdapter{
+            moveIntent(it)
+        }
         binding.rvGame.adapter = adapter
         homeViewModel.games.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
@@ -100,7 +106,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setRecyclerViewGame(searchQuery: String) {
-        val adapter = GameAdapter()
+        val adapter = GameAdapter{
+            moveIntent(it)
+        }
         binding.rvGame.adapter = adapter
         homeViewModel.gameSearch(searchQuery).observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
@@ -141,6 +149,12 @@ class HomeFragment : Fragment() {
         } else {
             binding.ivEmptyGame.visibility = View.GONE
         }
+    }
+
+    private fun moveIntent(game: Game) {
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra(EXTRA_GAME_HOME_FRAGMENT, game)
+        startActivity(intent)
     }
 
 }
