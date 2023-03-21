@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "favorite_game")
 data class Game(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     @field:SerializedName("id")
     val id: Int,
 

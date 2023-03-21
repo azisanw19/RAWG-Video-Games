@@ -1,12 +1,10 @@
 package com.canwar.rawgvideogames.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.canwar.rawgvideogames.data.responsemodel.Game
 import com.canwar.rawgvideogames.repository.GameRepositoryImpl
 import com.canwar.rawgvideogames.network.api.Resource
+import kotlinx.coroutines.launch
 
 class DetailViewModel(private val gameRepository: GameRepositoryImpl) : ViewModel() {
 
@@ -16,18 +14,53 @@ class DetailViewModel(private val gameRepository: GameRepositoryImpl) : ViewMode
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val callObserver: Observer<Resource<Game>> = Observer { t -> processGame(t) }
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
 
-    companion object{
-        private const val TAG = "DetailViewModel"
+    private val callObserver: Observer<Resource<Game>> = Observer { t ->
+        processGame(t)
+
+    }
+
+    companion object {
+        private const val TAG = "DETAIL_VIEW_MODEL"
     }
 
     fun getGame(idGame: Int) {
         gameRepository.detailGame(idGame).observeForever { callObserver.onChanged(it) }
     }
 
+    fun saveFavoriteGame() {
+        if (_game.value != null) {
+            viewModelScope.launch {
+                gameRepository.saveGameFavorite(_game.value!!)
+                _isFavorite.value = true
+            }
+        }
+    }
+
+    fun deleteFavoriteGame() {
+        if (_game.value != null) {
+            viewModelScope.launch {
+                gameRepository.deleteGame(_game.value!!)
+                _isFavorite.value = false
+            }
+        }
+    }
+
+    private fun getFavoriteGameFromDb(game: Game) {
+        viewModelScope.launch {
+            gameRepository.getGameDb(game.id).observeForever {
+                _isFavorite.value = when (it?.id) {
+                    game.id ->  true
+                    else -> false
+                }
+            }
+        }
+    }
+
     private fun processGame(response: Resource<Game>) {
-        when(response.status) {
+        when (response.status) {
             Resource.Status.LOADING -> {
                 _isLoading.value = true
             }
@@ -35,6 +68,7 @@ class DetailViewModel(private val gameRepository: GameRepositoryImpl) : ViewMode
                 _isLoading.value = false
                 if (response.data != null) {
                     _game.value = response.data!!
+                    getFavoriteGameFromDb(response.data)
                 }
             }
             Resource.Status.ERROR -> {

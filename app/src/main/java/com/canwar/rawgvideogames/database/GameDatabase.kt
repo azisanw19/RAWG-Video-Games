@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.canwar.rawgvideogames.data.responsemodel.Game
-import kotlinx.coroutines.CoroutineScope
 
 @Database(
     entities = [Game::class],
@@ -15,13 +14,14 @@ import kotlinx.coroutines.CoroutineScope
 )
 abstract class GameDatabase : RoomDatabase() {
 
-    abstract fun GameDao() : GameDao
+    abstract fun gameDao(): GameDao
 
     companion object {
         @Volatile
         private var INSTANCE: GameDatabase? = null
 
-        fun getDatabase(context: Context, applicationScope: CoroutineScope): GameDatabase {
+        @JvmStatic
+        fun getDatabase(context: Context): GameDatabase {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,

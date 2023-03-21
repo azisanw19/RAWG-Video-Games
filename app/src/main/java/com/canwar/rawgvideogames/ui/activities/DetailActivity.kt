@@ -3,9 +3,14 @@ package com.canwar.rawgvideogames.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.canwar.rawgvideogames.R
 import com.canwar.rawgvideogames.data.responsemodel.Game
@@ -13,6 +18,7 @@ import com.canwar.rawgvideogames.databinding.ActivityDetailBinding
 import com.canwar.rawgvideogames.viewmodel.DetailViewModel
 import com.canwar.rawgvideogames.viewmodel.ViewModelFactory
 import com.canwar.rawgvideogames.ui.fragments.HomeFragment.Companion.EXTRA_GAME_HOME_FRAGMENT
+import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
 
@@ -20,6 +26,10 @@ class DetailActivity : AppCompatActivity() {
 
     private val detailViewModel: DetailViewModel by viewModels {
         ViewModelFactory(this)
+    }
+
+    private companion object {
+        const val TAG = "DETAIL_ACTIVITY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +53,44 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
 
-        // TODO: Settings menu favorite
-        val itemIsSave = menu?.findItem(R.id.detail_save_navigation_menu)
-        itemIsSave?.isVisible = false
-//        itemIsSave?.icon?
+
+        val deleteFavoriteItem = menu?.findItem(R.id.detail_favorite_navigation_menu)
+        val favoriteItem = menu?.findItem(R.id.detail_not_favorite_navigation_menu)
+
+        detailViewModel.isFavorite.observe(this) {
+            Log.d(TAG, "isFavorite: $it")
+            setFavoriteButton(it, favoriteItem, deleteFavoriteItem)
+        }
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun setFavoriteButton(isFavorite: Boolean, favoriteItem: MenuItem?, deleteFavoriteItem: MenuItem?) {
+        if (isFavorite) {
+            favoriteItem?.isVisible = false
+            deleteFavoriteItem?.isVisible = true
+        } else {
+            favoriteItem?.isVisible = true
+            deleteFavoriteItem?.isVisible = false
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.detail_favorite_navigation_menu -> {
+                // Delete favorite
+                detailViewModel.deleteFavoriteGame()
+                Log.d(TAG, "Click Delete Favorite")
+            }
+            R.id.detail_not_favorite_navigation_menu -> {
+                // save favorite
+                detailViewModel.saveFavoriteGame()
+                Log.d(TAG, "Click favorite")
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+        return true
     }
 
     private fun setContent(game: Game) {

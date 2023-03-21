@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/detail_save_navigation_menu"
+    <item android:id="@+id/detail_favorite_navigation_menu"
         android:icon="@drawable/favorite_save"
         android:title="@string/favorite"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/detail_unsave_navigation_menu"
+    <item android:id="@+id/detail_not_favorite_navigation_menu"
         android:icon="@drawable/favorite_unsave"
         android:title="@string/favorite"
         app:showAsAction="ifRoom" />
