@@ -7,18 +7,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.canwar.rawgvideogames.R
 import com.canwar.rawgvideogames.data.responsemodel.Game
 import com.canwar.rawgvideogames.databinding.ActivityDetailBinding
 import com.canwar.rawgvideogames.viewmodel.DetailViewModel
 import com.canwar.rawgvideogames.viewmodel.ViewModelFactory
-import com.canwar.rawgvideogames.ui.fragments.HomeFragment.Companion.EXTRA_GAME_HOME_FRAGMENT
-import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity() {
 
@@ -28,8 +23,9 @@ class DetailActivity : AppCompatActivity() {
         ViewModelFactory(this)
     }
 
-    private companion object {
+    companion object {
         const val TAG = "DETAIL_ACTIVITY"
+        const val EXTRA_DETAIL_ACTIVITY = "EXTRA_DETAIL_ACTIVITY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +33,7 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val idGame = intent.getIntExtra(EXTRA_GAME_HOME_FRAGMENT, 0)
+        val idGame = intent.getIntExtra(EXTRA_DETAIL_ACTIVITY, 0)
         detailViewModel.getGame(idGame)
 
         detailViewModel.games.observe(this) {
@@ -53,9 +49,11 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)
 
-
         val deleteFavoriteItem = menu?.findItem(R.id.detail_favorite_navigation_menu)
         val favoriteItem = menu?.findItem(R.id.detail_not_favorite_navigation_menu)
+
+        deleteFavoriteItem?.isVisible = false
+        favoriteItem?.isVisible = false
 
         detailViewModel.isFavorite.observe(this) {
             Log.d(TAG, "isFavorite: $it")

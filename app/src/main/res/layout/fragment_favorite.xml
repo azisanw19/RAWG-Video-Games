@@ -4,8 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/medium_margin"
     tools:context=".ui.fragments.FavoriteFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rv_favorite"
+        app:layout_constraintTop_toTopOf="@+id/rv_favorite" />
+
+    <ImageView
+        android:id="@+id/iv_empty_game"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/empty_game"
+        android:src="@drawable/empty_game"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rv_favorite"
+        app:layout_constraintTop_toTopOf="@+id/rv_favorite" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_favorite"
@@ -14,5 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_row_game" />
 </androidx.constraintlayout.widget.ConstraintLayout>

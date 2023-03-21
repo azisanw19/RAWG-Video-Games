@@ -16,13 +16,13 @@ import com.canwar.rawgvideogames.databinding.FragmentHomeBinding
 import com.canwar.rawgvideogames.ui.adapters.GameAdapter
 import com.canwar.rawgvideogames.data.responsemodel.Game
 import com.canwar.rawgvideogames.ui.activities.DetailActivity
+import com.canwar.rawgvideogames.ui.activities.DetailActivity.Companion.EXTRA_DETAIL_ACTIVITY
 import com.canwar.rawgvideogames.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
     companion object {
         private const val TAG = "HOME_FRAGMENT"
-        const val EXTRA_GAME_HOME_FRAGMENT = "EXTRA_GAME_HOME_FRAGMENT"
     }
 
     private var _binding: FragmentHomeBinding? = null
@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
 
     private fun moveIntent(game: Game) {
         val intent = Intent(context, DetailActivity::class.java)
-        intent.putExtra(EXTRA_GAME_HOME_FRAGMENT, game.id)
+        intent.putExtra(EXTRA_DETAIL_ACTIVITY, game.id)
         startActivity(intent)
     }
 

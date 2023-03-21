@@ -1,4 +1,4 @@
-package com.canwar.rawgvideogames.network.paging
+package com.canwar.rawgvideogames.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

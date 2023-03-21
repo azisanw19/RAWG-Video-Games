@@ -11,10 +11,12 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return HomeViewModel(Injection.provideRepository(context)) as T
-        } else if (modelClass.isAssignableFrom(DetailViewModel::class.java))  {
+        } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return DetailViewModel(Injection.provideRepository(context)) as T
-
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return FavoriteViewModel(Injection.provideRepository(context)) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel Class")

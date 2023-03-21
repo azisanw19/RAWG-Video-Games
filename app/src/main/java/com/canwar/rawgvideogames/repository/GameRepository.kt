@@ -12,7 +12,7 @@ interface GameRepository {
 
     suspend fun saveGameFavorite(game: Game)
 
-    fun getAllGame(): LiveData<List<Game>>
+    fun getPagingFavoriteGame(): LiveData<PagingData<Game>>
 
     suspend fun deleteGame(game: Game)
 

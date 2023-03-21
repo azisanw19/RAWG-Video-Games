@@ -9,9 +9,10 @@ import androidx.paging.liveData
 import com.canwar.rawgvideogames.network.api.ApiService
 import com.canwar.rawgvideogames.data.responsemodel.Game
 import com.canwar.rawgvideogames.database.GameDatabase
-import com.canwar.rawgvideogames.network.paging.GamePagingSource
+import com.canwar.rawgvideogames.paging.GamePagingSource
 import com.canwar.rawgvideogames.network.api.NetworkCall
 import com.canwar.rawgvideogames.network.api.Resource
+import com.canwar.rawgvideogames.paging.FavoriteGamePagingSource
 
 class GameRepositoryImpl(private val apiService: ApiService, private val database: GameDatabase) : GameRepository {
 
@@ -40,7 +41,16 @@ class GameRepositoryImpl(private val apiService: ApiService, private val databas
         database.gameDao().insertGame(game)
     }
 
-    override fun getAllGame(): LiveData<List<Game>> = database.gameDao().getAllGame()
+    override fun getPagingFavoriteGame(): LiveData<PagingData<Game>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                FavoriteGamePagingSource(database.gameDao())
+            }
+        ).liveData
+    }
 
     override suspend fun deleteGame(game: Game) {
         database.gameDao().deleteGame(game)

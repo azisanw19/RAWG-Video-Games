@@ -49,12 +49,10 @@ class DetailViewModel(private val gameRepository: GameRepositoryImpl) : ViewMode
     }
 
     private fun getFavoriteGameFromDb(game: Game) {
-        viewModelScope.launch {
-            gameRepository.getGameDb(game.id).observeForever {
-                _isFavorite.value = when (it?.id) {
-                    game.id ->  true
-                    else -> false
-                }
+        gameRepository.getGameDb(game.id).observeForever {
+            _isFavorite.value = when (it?.id) {
+                game.id -> true
+                else -> false
             }
         }
     }
