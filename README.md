@@ -28,4 +28,3 @@
 - Search Game dengan Paging
 - Detail Game
 - Save favorite game ke local database
-- 
